@@ -27,6 +27,11 @@ const message: {
     title: "IDが入力されていません",
     message: "送信されたメールに記載されているURLをクリックしてください。",
   },
+  TOO_MANY_REQUESTS: {
+    title: "Too Many Requests",
+    message:
+      "1分間のリクエスト回数の上限を超えました。時間をおいて再度お試しください。",
+  },
 };
 
 const ErrorCard = ({ status }: { status: Status }) => {

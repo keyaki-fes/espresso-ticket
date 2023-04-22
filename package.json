@@ -23,6 +23,7 @@
     "firebase-admin": "^11.7.0",
     "framer-motion": "^10.12.4",
     "html2canvas": "^1.4.1",
+    "lru-cache": "^9.1.0",
     "next": "13.3.0",
     "next-qrcode": "^2.4.1",
     "react": "18.2.0",
@@ -33,6 +34,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@types/lru-cache": "^7.10.10",
     "@types/react-twemoji": "^0.4.0"
   }
 }

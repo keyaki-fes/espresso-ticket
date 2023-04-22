@@ -15,6 +15,7 @@ export type Status =
   | "SERVER_ERROR"
   | "NETWORK_ERROR"
   | "ID_NOT_ENTERED"
+  | "TOO_MANY_REQUESTS"
   | "LOADING";
 
 export default function Home() {
@@ -66,6 +67,8 @@ export default function Home() {
             setStatus("NETWORK_ERROR");
           } else if (err.response.status === 404) {
             setStatus("NOT_FOUND");
+          } else if (err.response.status === 429) {
+            setStatus("TOO_MANY_REQUESTS");
           } else {
             setStatus("SERVER_ERROR");
           }
