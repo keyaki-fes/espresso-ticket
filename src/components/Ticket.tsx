@@ -3,15 +3,7 @@ import { Box, Text } from "@chakra-ui/react";
 import TicketCard from "@/components/TicketCard";
 import BarCode from "@/components/BarCode";
 
-type Status = "CONFIRMED" | "NOT_FOUND" | "SERVER_ERROR" | "LOADING";
-
-const Ticket = ({ rsvId }: { rsvId: string | null }) => {
-  const [status, setStatus] = useState<Status>("LOADING");
-
-  if (!rsvId) {
-    return <></>;
-  }
-
+const Ticket = ({ rsvId }: { rsvId: string }) => {
   return (
     <>
       <Box

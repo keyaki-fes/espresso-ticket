@@ -8,7 +8,6 @@ export default function Document() {
           name="description"
           content="古河中等教育学校第7回けやき祭デジタルチケット"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&display=swap"

@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box, Container, Text, Button } from "@chakra-ui/react";
-import { constants } from "@/libs/constants";
+import { Button } from "@chakra-ui/react";
 import Ticket from "@/components/Ticket";
 import Info from "@/components/Info";
 import { DownloadIcon } from "@chakra-ui/icons";
 import html2canvas from "html2canvas";
+import axios from "axios";
+import ErrorCard from "@/components/ErrorCard";
+import Layout from "@/components/Layout";
+
+export type Status =
+  | "CONFIRMED"
+  | "NOT_FOUND"
+  | "SERVER_ERROR"
+  | "NETWORK_ERROR"
+  | "ID_NOT_ENTERED"
+  | "LOADING";
 
 export default function Home() {
   const [rsvId, setRsvId] = useState<string | null>(null);
-  const [isReady, setIsReady] = useState<boolean>(false);
+  const [status, setStatus] = useState<Status>("LOADING");
 
   const router = useRouter();
 
@@ -32,84 +42,78 @@ export default function Home() {
       const { id } = router.query;
       if (id) {
         setRsvId(id as string);
-        setIsReady(true);
       } else {
         setRsvId(null);
-        setIsReady(true);
       }
     }
   }, [router.isReady]);
 
+  useEffect(() => {
+    if (rsvId) {
+      axios
+        .get(`/api/reservation`, {
+          params: {
+            id: rsvId,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setStatus("CONFIRMED");
+          }
+        })
+        .catch((err) => {
+          if (!err.request) {
+            setStatus("NETWORK_ERROR");
+          } else if (err.response.status === 404) {
+            setStatus("NOT_FOUND");
+          } else {
+            setStatus("SERVER_ERROR");
+          }
+        });
+    } else if (router.isReady) {
+      setStatus("ID_NOT_ENTERED");
+    }
+  }, [rsvId]);
+
   //todo
-  if (!isReady) {
+  if (status === "LOADING") {
     return <></>;
   }
 
-  return (
-    <>
-      <main>
-        <Box
-          bg="gray.100"
-          w="100vw"
-          minH="100vh"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          px={4}
-          py={8}
-        >
-          <Container
-            w="100%"
-            maxW="container.sm"
-            display="flex"
-            flexDirection="column"
-            gap={4}
-          >
-            <div id="ticket">
-              <Ticket rsvId={rsvId} />
-            </div>
-            <Info />
+  if (status !== "CONFIRMED" || !rsvId) {
+    return (
+      <Layout>
+        <ErrorCard status={status} />
+      </Layout>
+    );
+  }
 
-            <Button
-              colorScheme="blue"
-              size="sm"
-              variant="outline"
-              width="100%"
-              backgroundColor="white"
-              leftIcon={<DownloadIcon />}
-              onClick={download}
-            >
-              チケットをダウンロード
-            </Button>
-            {/*todo:ダウンロードした画像の精度を向上させる*/}
-          </Container>
-          <Box
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            gap={4}
-            mt={4}
-          >
-            <Text fontSize="sm" color="gray.500">
-              アプリバージョン {constants.app_version}
-            </Text>
-            {/*todo:プライバシーポリシー*/}
-          </Box>
-          <Text fontSize="sm" color="gray.500">
-            © 2023 第7回けやき祭実行委員会IT管理部
-          </Text>
-        </Box>
-      </main>
-    </>
+  return (
+    <Layout>
+      <div id="ticket">
+        <Ticket rsvId={rsvId} />
+      </div>
+      <Info />
+      <Button
+        colorScheme="blue"
+        size="sm"
+        variant="outline"
+        width="100%"
+        backgroundColor="white"
+        leftIcon={<DownloadIcon />}
+        onClick={download}
+      >
+        チケットをダウンロード
+      </Button>
+    </Layout>
   );
 }
 
-//todo:エラー状態の表示（404の場合はバーコードの画面に「予約IDが見つかりませんでした」、500の場合は「サーバーエラーが発生しました」など）
-//todo:予約IDが取得できない（localstorage,queryにない）場合の表示
 //todo:Google Analyticsを導入
 //todo:予約IDのチェックの際に「すでにチケットを開いたか」のフラグを立てる
 //todo:オフライン時の処理（ローカルストレージに保存しておく）
 //todo:PWA化
 //todo:PWAのアプリダウンロードを促す
 //todo:学校HP・文化祭HPへのリンク
+//todo:エラーハンドリングの改善
+//todo:eslintの設定
