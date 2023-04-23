@@ -1,4 +1,12 @@
-import { Box, Text, Button, ListItem, UnorderedList } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Button,
+  ListItem,
+  UnorderedList,
+  Grid,
+  GridItem,
+} from "@chakra-ui/react";
 
 const Info = () => {
   return (

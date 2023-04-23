@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Button } from "@chakra-ui/react";
+import { Button, Box, Text } from "@chakra-ui/react";
 import Ticket from "@/components/Ticket";
 import Info from "@/components/Info";
 import { DownloadIcon } from "@chakra-ui/icons";
@@ -8,6 +8,8 @@ import html2canvas from "html2canvas";
 import axios from "axios";
 import ErrorCard from "@/components/ErrorCard";
 import Layout from "@/components/Layout";
+import Twemoji from "react-twemoji";
+import Image from "next/image";
 
 export type Status =
   | "CONFIRMED"
@@ -78,9 +80,30 @@ export default function Home() {
     }
   }, [rsvId]);
 
-  //todo
   if (status === "LOADING") {
-    return <></>;
+    return (
+      <>
+        <Box
+          w="100%"
+          h="100vh"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          bg="gray.100"
+        >
+          <Image
+            src="/logo.png"
+            width={250}
+            height={250}
+            alt="けやき祭デジタルチケット"
+          />
+          <Text fontSize="lg" fontWeight="bold" color="gray.600" mt={4}>
+            Powered By けやき祭実行委員会IT管理部
+          </Text>
+        </Box>
+      </>
+    );
   }
 
   if (status !== "CONFIRMED" || !rsvId) {

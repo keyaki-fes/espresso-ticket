@@ -32,7 +32,7 @@ const TicketCard = ({ rsvId }: { rsvId: string }) => {
     <Box display="flex" flexDirection="column" gap={2} mt={4}>
       <Item label="予約ID" value={`R-${rsvId}`} />
       <Item label="登録区分" value={typeList[type] || "そのほか"} />
-      <Item label="入場日時" value="2023/06/03 09:30-14:30" />
+      <Item label="入場日時" value="2023/06/03 09:00-14:00" />
     </Box>
   );
 };

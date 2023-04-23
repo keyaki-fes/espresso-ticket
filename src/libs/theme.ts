@@ -1,10 +1,11 @@
 import { extendBaseTheme } from "@chakra-ui/react";
-import { Button as ButtonTheme, List as ListTheme } from "@chakra-ui/theme/components";
+import { Button as ButtonTheme, List as ListTheme, Progress as ProgressTheme } from "@chakra-ui/theme/components";
 
 const theme = extendBaseTheme({
     components: {
         Button: ButtonTheme,
         List: ListTheme,
+        Progress: ProgressTheme,
     },
     colors: {
         blue: {
