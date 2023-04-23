@@ -127,7 +127,7 @@ export default function Home() {
       <Info />
       <Button
         colorScheme="blue"
-        size="sm"
+        size="md"
         variant="outline"
         width="100%"
         backgroundColor="white"

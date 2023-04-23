@@ -2,35 +2,53 @@ import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import TicketCard from "@/components/TicketCard";
 import BarCode from "@/components/BarCode";
+import { getGuestType, guestColor } from "@/libs/constants";
+import { parseRsvId } from "@/libs/utils";
 
 const Ticket = ({ rsvId }: { rsvId: string }) => {
+  const { type } = parseRsvId(rsvId);
+  const guestType = getGuestType(type) || "そのほか";
   return (
     <>
-      <Box
-        backgroundImage="linear-gradient(0deg, #2b4fe0, #1d4ed8);"
-        borderRadius="lg"
-        p={4}
-        display="flex"
-        flexDirection="column"
-        gap={4}
-      >
-        <Text fontSize="lg" fontWeight="bold" color="white" textAlign="center">
-          けやき祭デジタルチケット
-        </Text>
+      <Box boxShadow={"lg"} rounded="lg">
         <Box
-          borderRadius="md"
-          pt={2}
-          pb={4}
-          px={8}
-          backgroundColor="gray.50"
-          width="75%"
-          minWidth="350px"
-          boxShadow="0px 0px 15px 4px rgba(0, 0, 0, 0.15)"
-          mx="auto"
+          backgroundColor={`${guestColor(guestType)}.700`}
+          px={4}
+          py={2}
+          display="flex"
+          flexDirection="column"
+          gap={4}
+          borderTopRightRadius="lg"
+          borderTopLeftRadius="lg"
         >
-          <BarCode rsvId={rsvId} />
+          <Text
+            fontSize="lg"
+            fontWeight="bold"
+            color="white"
+            textAlign="center"
+          >
+            けやき祭デジタルチケット
+          </Text>
         </Box>
-        <TicketCard rsvId={rsvId} />
+        <Box
+          backgroundColor="white"
+          p={4}
+          borderBottomLeftRadius="lg"
+          borderBottomRightRadius="lg"
+        >
+          <Box
+            borderRadius="md"
+            pb={4}
+            px={8}
+            width="75%"
+            minWidth="350px"
+            mx="auto"
+            my={4}
+          >
+            <BarCode rsvId={rsvId} />
+          </Box>
+          <TicketCard rsvId={rsvId} />
+        </Box>
       </Box>
     </>
   );

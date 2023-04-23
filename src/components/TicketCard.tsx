@@ -1,12 +1,20 @@
 import { Box, Text, Button } from "@chakra-ui/react";
 import { parseRsvId } from "@/libs/utils";
-import { typeList } from "@/libs/constants";
+import { getGuestType, guestColor } from "@/libs/constants";
 
-const Item = ({ label, value }: { label: string; value: string }) => {
+const Item = ({
+  label,
+  value,
+  color,
+}: {
+  label: string;
+  value: string;
+  color: string;
+}) => {
   return (
     <Box display="flex" flexDirection="row" alignItems="center" gap={4}>
       <Box
-        bg="blue.900"
+        bg={`${color}.700`}
         rounded={"md"}
         color="white"
         w={20}
@@ -18,7 +26,7 @@ const Item = ({ label, value }: { label: string; value: string }) => {
       >
         {label}
       </Box>
-      <Text fontSize="lg" color="slate.50" fontWeight="bold">
+      <Text fontSize="lg" color="gray.700" fontWeight="bold">
         {value}
       </Text>
     </Box>
@@ -27,12 +35,21 @@ const Item = ({ label, value }: { label: string; value: string }) => {
 
 const TicketCard = ({ rsvId }: { rsvId: string }) => {
   const { type } = parseRsvId(rsvId);
+  const guestType = getGuestType(type) || "そのほか";
 
   return (
-    <Box display="flex" flexDirection="column" gap={2} mt={4}>
-      <Item label="予約ID" value={`R-${rsvId}`} />
-      <Item label="登録区分" value={typeList[type] || "そのほか"} />
-      <Item label="入場日時" value="2023/06/03 09:00-14:00" />
+    <Box display="flex" flexDirection="column" gap={2}>
+      <Item label="予約ID" value={`R-${rsvId}`} color={guestColor(guestType)} />
+      <Item
+        label="登録区分"
+        value={getGuestType(type) || "そのほか"}
+        color={guestColor(guestType)}
+      />
+      <Item
+        label="入場日時"
+        value="2023/06/03 09:00-14:00"
+        color={guestColor(guestType)}
+      />
     </Box>
   );
 };
