@@ -16,6 +16,7 @@ export type Status =
   | "NOT_FOUND"
   | "SERVER_ERROR"
   | "NETWORK_ERROR"
+  | "OFFLINE"
   | "ID_NOT_ENTERED"
   | "TOO_MANY_REQUESTS"
   | "LOADING";
@@ -53,6 +54,10 @@ export default function Home() {
 
   useEffect(() => {
     if (rsvId) {
+      if (!window.navigator.onLine) {
+        setStatus("OFFLINE");
+        return;
+      }
       axios
         .get(`/api/reservation`, {
           params: {
