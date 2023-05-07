@@ -69,17 +69,16 @@ const ErrorCard = ({ status }: { status: Status }) => {
           borderBottomLeftRadius="lg"
           borderBottomRightRadius="lg"
         >
-          <Text fontSize="2xl" fontWeight="bold" color="gray.700">
-            {message[status].title}
-          </Text>
-          <Box w={56} h={56}>
-            <Image src="/error.png" alt="error" />
-          </Box>
-          {message[status].description && (
-            <Text fontSize="lg" color="gray.600" fontWeight={"bold"}>
-              {message[status].description}
+          <Box display="flex" alignItems="center" gap={4} mb={4}>
+            <Text fontSize="3xl" fontWeight="bold" color="gray.700">
+              {message[status].title}
             </Text>
-          )}
+            {message[status].description && (
+              <Text fontSize="xl" color="gray.600" fontWeight={"bold"}>
+                {message[status].description}
+              </Text>
+            )}
+          </Box>
           <Text fontSize="md" color="gray.600">
             {message[status].message}
           </Text>
