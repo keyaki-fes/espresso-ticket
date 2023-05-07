@@ -43,30 +43,47 @@ const message: {
 const ErrorCard = ({ status }: { status: Status }) => {
   return (
     <>
-      <Box
-        display="flex"
-        flexDirection="column"
-        backgroundColor="white"
-        borderRadius="lg"
-        p={4}
-        justifyContent="center"
-        alignItems="center"
-        gap={4}
-      >
-        <Text fontSize="2xl" fontWeight="bold" color="gray.700">
-          {message[status].title}
-        </Text>
-        <Box w={56} h={56}>
-          <Image src="/error.png" alt="error" />
-        </Box>
-        {message[status].description && (
-          <Text fontSize="lg" color="gray.600" fontWeight={"bold"}>
-            {message[status].description}
+      <Box boxShadow={"lg"} rounded="lg">
+        <Box
+          backgroundColor={`blue.700`}
+          px={4}
+          py={2}
+          display="flex"
+          flexDirection="column"
+          gap={4}
+          borderTopRightRadius="lg"
+          borderTopLeftRadius="lg"
+        >
+          <Text
+            fontSize="lg"
+            fontWeight="bold"
+            color="white"
+            textAlign="center"
+          >
+            けやき祭デジタルチケット
           </Text>
-        )}
-        <Text fontSize="md" color="gray.600">
-          {message[status].message}
-        </Text>
+        </Box>
+        <Box
+          backgroundColor="white"
+          p={4}
+          borderBottomLeftRadius="lg"
+          borderBottomRightRadius="lg"
+        >
+          <Text fontSize="2xl" fontWeight="bold" color="gray.700">
+            {message[status].title}
+          </Text>
+          <Box w={56} h={56}>
+            <Image src="/error.png" alt="error" />
+          </Box>
+          {message[status].description && (
+            <Text fontSize="lg" color="gray.600" fontWeight={"bold"}>
+              {message[status].description}
+            </Text>
+          )}
+          <Text fontSize="md" color="gray.600">
+            {message[status].message}
+          </Text>
+        </Box>
       </Box>
     </>
   );
