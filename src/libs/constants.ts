@@ -1,5 +1,5 @@
 export const constants = {
-    app_version: '0.3.0',
+    app_version: '0.4.0',
 }
 
 type GuestType = "招待" | "PTA" | "一般" | "テスト";
