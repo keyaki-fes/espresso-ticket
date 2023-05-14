@@ -53,7 +53,14 @@ export default function Home() {
   }, [router.isReady]);
 
   useEffect(() => {
+    const rsvIdFromLocalStorage = window.localStorage.getItem("rsvId");
     if (rsvId) {
+      if (rsvIdFromLocalStorage === rsvId) {
+        setStatus("CONFIRMED");
+        return;
+      } else {
+        window.localStorage.removeItem("rsvId");
+      }
       if (!window.navigator.onLine) {
         setStatus("OFFLINE");
         return;
@@ -67,6 +74,7 @@ export default function Home() {
         .then((res) => {
           if (res.status === 200) {
             setStatus("CONFIRMED");
+            window.localStorage.setItem("rsvId", rsvId);
           }
         })
         .catch((err) => {
@@ -81,6 +89,11 @@ export default function Home() {
           }
         });
     } else if (router.isReady) {
+      if (rsvIdFromLocalStorage && rsvId === null) {
+        setRsvId(rsvIdFromLocalStorage);
+        setStatus("CONFIRMED");
+        return;
+      }
       setStatus("ID_NOT_ENTERED");
     }
   }, [rsvId]);
@@ -128,17 +141,8 @@ export default function Home() {
         leftIcon={<DownloadIcon />}
         onClick={download}
       >
-        チケットをダウンロード
+        チケットをダウンロード（PNG画像、約60KB）
       </Button>
     </Layout>
   );
 }
-
-//todo:Google Analyticsを導入
-//todo:予約IDのチェックの際に「すでにチケットを開いたか」のフラグを立てる
-//todo:オフライン時の処理（ローカルストレージに保存しておく）
-//todo:PWA化
-//todo:PWAのアプリダウンロードを促す
-//todo:学校HP・文化祭HPへのリンク
-//todo:エラーハンドリングの改善
-//todo:eslintの設定

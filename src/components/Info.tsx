@@ -1,12 +1,4 @@
-import {
-  Box,
-  Text,
-  Button,
-  ListItem,
-  UnorderedList,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react";
+import { Box, Text, ListItem, UnorderedList, Link } from "@chakra-ui/react";
 
 const Info = () => {
   return (
@@ -28,10 +20,18 @@ const Info = () => {
         </Text>
         <UnorderedList color="gray.600">
           <ListItem>
-            バーコードで読み取りやすくするため、スマートフォンの画面の明るさを最大にしてください
+            バーコードを読み取りやすくするため、入場時はスマートフォンの画面の明るさを最大にしてお待ちください。
           </ListItem>
           <ListItem>
-            文化祭当日はシステムの混雑が予想されるため、あらかじめチケットのダウンロードをお願いします
+            このサイトはPWAに対応しています。
+            <Link
+              href="https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=ja"
+              color="blue.600"
+              isExternal
+            >
+              インストール
+            </Link>
+            するとオフライン環境時でもチケットを表示することができます。
           </ListItem>
         </UnorderedList>
       </Box>
@@ -40,5 +40,3 @@ const Info = () => {
 };
 
 export default Info;
-
-//todo:入場の際にどの列に並ぶかを表示する

@@ -39,7 +39,7 @@ const TicketCard = ({ rsvId }: { rsvId: string }) => {
 
   return (
     <Box display="flex" flexDirection="column" gap={2}>
-      <Item label="予約ID" value={`R-${rsvId}`} color={guestColor(guestType)} />
+      <Item label="予約ID" value={`${rsvId}`} color={guestColor(guestType)} />
       <Item
         label="登録区分"
         value={getGuestType(type) || "そのほか"}

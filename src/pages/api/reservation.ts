@@ -28,7 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const doc = await db.collection("reservation").doc(id as string).get();
         if (!doc.exists) {
-            errorLog("id is required", req);
+            errorLog("not found", req);
             res.status(404).json({ message: "not found" });
             return;
         }
