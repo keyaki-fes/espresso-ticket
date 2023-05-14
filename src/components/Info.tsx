@@ -21,7 +21,7 @@ const Info = () => {
       >
         <Text fontSize="md" color="gray.600">
           入場時にこのチケットをスタッフに提示してください。
-          スマートフォンで表示するか、印刷してお持ちください。
+          上記の予約人数まで入場することができます。
         </Text>
         <Text fontSize="md" color="gray.700" fontWeight={"bold"}>
           お願い
@@ -29,6 +29,9 @@ const Info = () => {
         <UnorderedList color="gray.600">
           <ListItem>
             バーコードで読み取りやすくするため、スマートフォンの画面の明るさを最大にしてください
+          </ListItem>
+          <ListItem>
+            文化祭当日はシステムの混雑が予想されるため、あらかじめチケットのダウンロードをお願いします
           </ListItem>
         </UnorderedList>
       </Box>

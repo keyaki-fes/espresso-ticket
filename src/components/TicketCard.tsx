@@ -34,7 +34,7 @@ const Item = ({
 };
 
 const TicketCard = ({ rsvId }: { rsvId: string }) => {
-  const { type } = parseRsvId(rsvId);
+  const { type, num } = parseRsvId(rsvId);
   const guestType = getGuestType(type) || "そのほか";
 
   return (
@@ -45,11 +45,7 @@ const TicketCard = ({ rsvId }: { rsvId: string }) => {
         value={getGuestType(type) || "そのほか"}
         color={guestColor(guestType)}
       />
-      <Item
-        label="入場日時"
-        value="2023/06/03 09:00-14:00"
-        color={guestColor(guestType)}
-      />
+      <Item label="予約人数" value={`${num}名`} color={guestColor(guestType)} />
     </Box>
   );
 };

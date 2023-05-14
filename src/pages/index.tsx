@@ -97,14 +97,8 @@ export default function Home() {
           alignItems="center"
           bg="gray.100"
         >
-          <Image
-            src="/logo.png"
-            width={250}
-            height={250}
-            alt="けやき祭デジタルチケット"
-          />
           <Text fontSize="lg" fontWeight="bold" color="gray.600" mt={4}>
-            Powered By けやき祭実行委員会IT管理部
+            チケットを読み込んでいます...
           </Text>
         </Box>
       </>
