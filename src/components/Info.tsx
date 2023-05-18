@@ -22,17 +22,6 @@ const Info = () => {
           <ListItem>
             バーコードを読み取りやすくするため、入場時はスマートフォンの画面の明るさを最大にしてお待ちください。
           </ListItem>
-          <ListItem>
-            このサイトはPWAに対応しています。
-            <Link
-              href="https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=ja"
-              color="blue.600"
-              isExternal
-            >
-              インストール
-            </Link>
-            するとオフライン環境時でもチケットを表示することができます。
-          </ListItem>
         </UnorderedList>
       </Box>
     </>
