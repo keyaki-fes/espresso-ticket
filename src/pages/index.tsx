@@ -134,14 +134,17 @@ export default function Home() {
       <Info />
       <Button
         colorScheme="blue"
-        size="md"
+        overflow="wrap"
         variant="outline"
+        whiteSpace="normal"
         width="100%"
         backgroundColor="white"
         leftIcon={<DownloadIcon />}
         onClick={download}
       >
-        チケットをダウンロード（PNG画像、約60KB）
+        チケットをダウンロード
+        <wbr />
+        （PNG画像、約60KB）
       </Button>
     </Layout>
   );
