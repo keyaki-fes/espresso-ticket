@@ -1,15 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { Button, Box, Text } from "@chakra-ui/react";
 import Ticket from "@/components/Ticket";
 import Info from "@/components/Info";
 import { DownloadIcon } from "@chakra-ui/icons";
-import html2canvas from "html2canvas";
 import axios from "axios";
 import ErrorCard from "@/components/ErrorCard";
 import Layout from "@/components/Layout";
-import Twemoji from "react-twemoji";
-import Image from "next/image";
+import { toPng } from "html-to-image";
+import { useRef } from "react";
 
 export type Status =
   | "CONFIRMED"
@@ -24,22 +23,29 @@ export type Status =
 export default function Home() {
   const [rsvId, setRsvId] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>("LOADING");
+  const ref = useRef(null);
 
   const router = useRouter();
 
-  const download = () => {
-    const ticket = document.getElementById("ticket");
-    if (ticket) {
-      html2canvas(ticket).then((canvas) => {
-        const a = document.createElement("a");
-        a.href = canvas.toDataURL("image/png");
-        a.download = "ticket.png";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+  const download = useCallback(() => {
+    if (ref.current === null) return;
+
+    toPng(ref.current, {
+      cacheBust: true,
+      width: 700,
+      canvasWidth: 700,
+      quality: 1,
+    })
+      .then((dataUrl) => {
+        var link = document.createElement("a");
+        link.download = "ticket.png";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((e) => {
+        console.log(e);
       });
-    }
-  };
+  }, [ref]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -128,7 +134,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div id="ticket">
+      <div ref={ref}>
         <Ticket rsvId={rsvId} />
       </div>
       <Info />

@@ -12,7 +12,13 @@ const Item = ({
   color: string;
 }) => {
   return (
-    <Box display="flex" flexDirection="row" alignItems="center" gap={4}>
+    <Box
+      display="flex"
+      flexDirection="row"
+      alignItems="center"
+      gap={4}
+      width="100%"
+    >
       <Box
         bg={`${color}.700`}
         rounded={"md"}
