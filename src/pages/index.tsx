@@ -7,7 +7,7 @@ import { DownloadIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import ErrorCard from "@/components/ErrorCard";
 import Layout from "@/components/Layout";
-import { toPng } from "html-to-image";
+import html2canvas from "html2canvas";
 import { useRef } from "react";
 
 export type Status =
@@ -30,21 +30,15 @@ export default function Home() {
   const download = useCallback(() => {
     if (ref.current === null) return;
 
-    toPng(ref.current, {
-      cacheBust: true,
-      width: 700,
-      canvasWidth: 700,
-      quality: 1,
-    })
-      .then((dataUrl) => {
-        var link = document.createElement("a");
-        link.download = "ticket.png";
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    html2canvas(ref.current, {
+      backgroundColor: null,
+      scale: 2,
+    }).then((canvas) => {
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "ticket.png";
+      a.click();
+    });
   }, [ref]);
 
   useEffect(() => {
