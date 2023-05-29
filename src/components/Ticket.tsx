@@ -36,16 +36,10 @@ const Ticket = ({ rsvId }: { rsvId: string }) => {
           borderBottomLeftRadius="lg"
           borderBottomRightRadius="lg"
         >
-          <Box
-            borderRadius="md"
-            pb={4}
-            px={8}
-            width="75%"
-            minWidth="350px"
-            mx="auto"
-            my={4}
-          >
-            <BarCode rsvId={rsvId} />
+          <Box display={"flex"} justifyContent={"center"} width="100%">
+            <Box borderRadius="md" pb={4} width="75%" minWidth="350px" my={4}>
+              <BarCode rsvId={rsvId} />
+            </Box>
           </Box>
           <TicketCard rsvId={rsvId} />
         </Box>
